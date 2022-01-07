@@ -1,115 +1,298 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_job_app/models/job.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyApp(),
+    ));
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  final List<Job> _jobs = [
+    Job(
+        title: 'Senior UI/UX Designer',
+        companyName: 'Google',
+        image: 'Google',
+        workHour: 'Full Time Job',
+        minSal: 240,
+        maxSal: 280,
+        minExp: 5),
+    Job(
+        title: 'UI/UX Designer',
+        companyName: 'Apple',
+        image: 'Apple',
+        workHour: 'Full Time Job',
+        minSal: 80,
+        maxSal: 90,
+        minExp: 1),
+    Job(
+        title: 'UX Research Intern',
+        companyName: 'Reddit',
+        image: 'Reddit',
+        workHour: 'Internship',
+        minSal: 40,
+        maxSal: 50,
+        minExp: 1),
+    Job(
+        title: 'Product Designer',
+        companyName: 'Dribbble',
+        image: 'Dribbble',
+        workHour: 'Full Time Job',
+        minSal: 60,
+        maxSal: 85,
+        minExp: 1),
+    Job(
+        title: 'Senior Product Designer',
+        companyName: 'Figma',
+        image: 'Figma',
+        workHour: 'Full Time Job',
+        minSal: 80,
+        maxSal: 180,
+        minExp: 3),
+    Job(
+        title: 'Software Developer Intern',
+        companyName: 'Adobe',
+        image: 'Adobe',
+        workHour: 'Internship',
+        minSal: 50,
+        maxSal: 60,
+        minExp: 1),
+    Job(
+        title: 'UX Design Intern',
+        companyName: 'GitHub',
+        image: 'GitHub',
+        workHour: 'Internship',
+        minSal: 40,
+        maxSal: 50,
+        minExp: 1),
+    Job(
+        title: 'Web Developer',
+        companyName: 'Notion',
+        image: 'Notion',
+        workHour: 'Full Time Job',
+        minSal: 80,
+        maxSal: 100,
+        minExp: 1),
+    Job(
+        title: 'Mobile App Developer',
+        companyName: 'Tiktok',
+        image: 'TikTok',
+        workHour: 'Full Time Job',
+        minSal: 100,
+        maxSal: 120,
+        minExp: 2),
+    Job(
+        title: 'Senior Software Engineer Lead',
+        companyName: 'Microsoft',
+        image: 'Microsoft',
+        workHour: 'Full Time Job',
+        minSal: 200,
+        maxSal: 250,
+        minExp: 5),
+    Job(
+        title: 'Software Engineer Intern',
+        companyName: 'PayPal',
+        image: 'PayPal',
+        workHour: 'Internship',
+        minSal: 50,
+        maxSal: 55,
+        minExp: 1),
+    Job(
+        title: 'UX Researcher',
+        companyName: 'Instagram',
+        image: 'Instagram',
+        workHour: 'Full Time Job',
+        minSal: 160,
+        maxSal: 200,
+        minExp: 4),
+    Job(
+        title: 'Security Software Engineer',
+        companyName: 'Netflix',
+        image: 'Netflix',
+        workHour: 'Full Time Job',
+        minSal: 150,
+        maxSal: 200,
+        minExp: 4),
+    Job(
+        title: 'Data Scientist - SMB',
+        companyName: 'Twitter',
+        image: 'Twitter',
+        workHour: 'Full Time Job',
+        minSal: 140,
+        maxSal: 160,
+        minExp: 3),
+  ];
+  late List<Job> displayJobs;
+  late TextEditingController _searchController;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  void initState() {
+    super.initState();
+    displayJobs = _jobs;
+    _searchController = TextEditingController();
   }
 
   @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  PreferredSizeWidget appBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: Container(
+        decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(12)),
+        child: TextField(
+          controller: _searchController,
+          onChanged: (v) {
+            setState(() {
+              displayJobs = v != ''
+                  ? _jobs.where((u) => u.title!.contains(v)).toList()
+                  : _jobs;
+            });
+          },
+          style: GoogleFonts.inter(),
+          textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              isDense: true,
+              isCollapsed: true,
+              hintText: 'Search',
+              hintStyle: GoogleFonts.inter(),
+              suffixIconConstraints: const BoxConstraints(
+                  minWidth: 36, maxWidth: 36, minHeight: 36, maxHeight: 36),
+              contentPadding: const EdgeInsets.only(
+                  right: 20, left: 20, top: 10, bottom: 12),
+              suffixIcon: _searchController.text.isNotEmpty
+                  ? GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _searchController.text = '';
+                          displayJobs = _jobs;
+                        });
+                      },
+                      child: const Icon(Icons.close))
+                  : null),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  Widget card({Job? job}) {
+    return Container(
+      height: 100,
+      padding: const EdgeInsets.all(12),
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.shade200, blurRadius: 20, spreadRadius: 1)
+          ]),
+      child: Row(
+        children: [
+          AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(12)),
+              child: Image.asset('assets/images/${job?.image}.png'),
+            ),
+          ),
+          const SizedBox(
+            width: 12,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(job!.title!,
+                    style: GoogleFonts.inter(
+                        fontSize: 16, fontWeight: FontWeight.w600)),
+                Text(
+                    '${job.companyName} | \$${job.minSal}-\$${job.maxSal}K/year',
+                    style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade800)),
+                const Spacer(),
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 6),
+                      decoration: BoxDecoration(
+                          color: Colors.blue.shade50,
+                          borderRadius: BorderRadius.circular(6)),
+                      child: Text(
+                        'Experience: ${job.minExp} Years',
+                        style: GoogleFonts.inter(
+                            color: Colors.grey.shade800,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 6),
+                      decoration: BoxDecoration(
+                          color: Colors.yellow.shade100,
+                          borderRadius: BorderRadius.circular(6)),
+                      child: Text(
+                        job.workHour!,
+                        style: GoogleFonts.inter(
+                            color: Colors.grey.shade800,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  //////////////////////////////
+  /// @withflutter
+  ///
+  /// afifudin.vercel.app
+  //////////////////////////////
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: appBar(),
+        body: ListView.separated(
+          padding: const EdgeInsets.symmetric(vertical: 24),
+          physics: const BouncingScrollPhysics(),
+          itemCount: displayJobs.length,
+          itemBuilder: (context, index) {
+            return card(job: displayJobs[index]);
+          },
+          separatorBuilder: (context, index) {
+            return const SizedBox(
+              height: 12,
+            );
+          },
+        ));
   }
 }
